@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Machine Learning</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Dashboard de Machine Learning</h1>
+        <p>Visualização de Clusterização e Regressão Linear</p>
+    </header>
+
+    <main>
+
+        <section class="card">
+
+            <h2>Clusterização</h2>
+
+            <div class="graficos">
+
+                <div class="grafico">
+                    <h3>DBSCAN</h3>
+                    <canvas id="graficoDBSCAN"></canvas>
+                </div>
+
+                <div class="grafico">
+                    <h3>HDBSCAN</h3>
+                    <canvas id="graficoHDBSCAN"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Treinamento do Modelo</h2>
+            
+                <div class="metricas">
+
+                    <div class="cardMetrica">
+
+                        <h3>MAE</h3>
+
+                        <span id="mae">-</span>
+
+                    </div>
+
+                    <div class="cardMetrica">
+
+                        <h3>MSE</h3>
+
+                        <span id="mse">-</span>
+
+                    </div>
+
+                    <div class="cardMetrica">
+
+                        <h3>RMSE</h3>
+
+                        <span id="rmse">-</span>
+
+                    </div>
+
+                    <div class="cardMetrica">
+
+                        <h3>R²</h3>
+
+                        <span id="r2">-</span>
+
+                    </div>
+
+                </div>
+
+            <h3>1. Divisão do Dataset</h3>
+
+            <div class="formulario">
+
+                <div class="campo">
+
+                    <label for="testSize">
+                        Tamanho do conjunto de teste (%)
+                    </label>
+
+                    <input
+                        id="testSize"
+                        type="number"
+                        min="5"
+                        max="50"
+                        value="20">
+
+                </div>
+
+            </div>
+
+            <button id="btnDividir">
+
+                Dividir Dataset
+
+            </button>
+
+            <div
+                id="statusSplit"
+                class="mensagem"
+                style="display:none;">
+            </div>
+
+            <hr>
+
+            <h3>2. Hiperparâmetros</h3>
+
+            <div class="formulario">
+
+                <div class="campo">
+
+                    <label for="fitIntercept">
+                        Fit Intercept
+                    </label>
+
+                    <input
+                        id="fitIntercept"
+                        type="checkbox"
+                        checked>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="positive">
+                        Positive
+                    </label>
+
+                    <input
+                        id="positive"
+                        type="checkbox">
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="nJobs">
+                        N Jobs
+                    </label>
+
+                    <input
+                        id="nJobs"
+                        type="number"
+                        value="1"
+                        min="-1">
+
+                </div>
+
+            </div>
+
+            <button id="btnTreinar">
+
+                Criar Modelo
+
+            </button>
+
+            <div
+                id="statusModelo"
+                class="mensagem">
+            </div>
+
+        </section>
+
+        <section
+            class="card"
+            id="painelPredicao"
+            style="display:none;">
+
+            <h2>Predição</h2>
+
+            <div class="formulario">
+
+                <div class="campo">
+
+                    <label for="idade">
+                        Idade
+                    </label>
+
+                    <input
+                        id="idade"
+                        type="number">
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="salario">
+                        Salário
+                    </label>
+
+                    <input
+                        id="salario"
+                        type="number">
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="estudo">
+                        Anos de estudo
+                    </label>
+
+                    <input
+                        id="estudo"
+                        type="number">
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="trabalho">
+                        Anos de trabalho
+                    </label>
+
+                    <input
+                        id="trabalho"
+                        type="number">
+
+                </div>
+
+            </div>
+
+            <button id="btnPredicao">
+
+                Realizar Predição
+
+            </button>
+
+            <div class="resultado">
+
+                <h3>Score previsto</h3>
+
+                <span id="resultado">-</span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+
+</body>
+
+</html>
