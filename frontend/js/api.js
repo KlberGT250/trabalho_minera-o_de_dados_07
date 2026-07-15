@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:8000";
+const API = "https://trabalho-minera-o-de-dados-07.onrender.com";
 
 export async function getMetricas(){
 

@@ -21,9 +21,11 @@ app = FastAPI(lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-    ],
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "https://trabalho-minera-o-de-dados-07.vercel.app",  # a URL real que a Vercel gerar
+],
+  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
