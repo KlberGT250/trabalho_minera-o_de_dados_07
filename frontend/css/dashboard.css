@@ -1,0 +1,50 @@
+/* ===== GRÁFICOS — VERSÃO APRIMORADA ===== */
+
+.graficos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.grafico {
+    background: #ffffff;
+    border-radius: var(--raio);
+    padding: 20px;
+    box-shadow: var(--sombra-suave);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-top: 4px solid var(--cor-primaria);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.grafico:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover);
+}
+
+/* Alterna a cor de destaque entre os dois gráficos, igual às métricas */
+.grafico:nth-child(1) { border-top-color: #1976d2; }
+.grafico:nth-child(2) { border-top-color: #7b1fa2; }
+
+/* Remove o h3 manual do HTML (o Chart.js já desenha o título dentro do canvas) */
+.grafico h3 {
+    display: none;
+}
+
+/* Container do canvas com altura fixa e proporção controlada */
+.grafico canvas {
+    width: 100% !important;
+    height: 320px !important;
+    max-height: 320px;
+}
+
+/* Responsivo: empilha em telas pequenas */
+@media (max-width: 800px) {
+    .graficos {
+        grid-template-columns: 1fr;
+    }
+    .grafico canvas {
+        height: 280px !important;
+    }
+}
