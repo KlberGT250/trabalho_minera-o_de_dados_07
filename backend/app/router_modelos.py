@@ -70,8 +70,8 @@ def criar_modelo_com_hiperparametros(hiperparametros: Hiperparametros, request: 
         n_jobs=hiperparametros.n_jobs
         )
     modelo_reg.fit(X, y)
-    joblib.dump(modelo_reg, os.path.join(caminho_atual, "modelos\\modelo_regressao.pkl") )
-    request.app.state.modelo_regressao = joblib.load(os.path.join(caminho_atual, "modelos\\modelo_regressao.pkl"))
+    joblib.dump(modelo_reg, os.path.join(caminho_atual, "modelos","modelo_regressao.pkl") )
+    request.app.state.modelo_regressao = joblib.load(os.path.join(caminho_atual, "modelos", "modelo_regressao.pkl"))
     
     return {
         'objetivo': 'Treinar modelo com hiperparametros',
@@ -81,9 +81,9 @@ def criar_modelo_com_hiperparametros(hiperparametros: Hiperparametros, request: 
 def split_csv_data(split: Split ):
 
     try:
-        file_path = os.path.join(caminho_atual, "arquivos\\funcionarios_inteiros.csv")
-        train_output_path=os.path.join(caminho_atual, "arquivos\\df_train.csv")
-        test_output_path=os.path.join(caminho_atual, "arquivos\\df_test.csv")
+        file_path = os.path.join(caminho_atual, "arquivos","funcionarios_inteiros.csv")
+        train_output_path=os.path.join(caminho_atual, "arquivos","df_train.csv")
+        test_output_path=os.path.join(caminho_atual, "arquivos","df_test.csv")
         df = pd.read_csv(file_path)
         
         # Dividir o dataset
