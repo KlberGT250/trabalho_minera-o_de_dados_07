@@ -136,11 +136,8 @@ def criar_modelo_com_hiperparametros(hiperparametros: Hiperparametros, request: 
         n_jobs=hiperparametros.n_jobs,
     )
     modelo_reg.fit(X, y)
-
-    # Salvar e recarregar no estado da aplicação
     joblib.dump(modelo_reg, ARQUIVO_MODELO)
     request.app.state.modelo_regressao = joblib.load(ARQUIVO_MODELO)
-
     return {
 
 
@@ -158,9 +155,7 @@ def split_csv_data(split: Split):
     O parâmetro test_size_percentage define a proporção para teste (0.0 a 1.0).
     """
     try:
-
         df = _carregar_csv(ARQUIVO_DADOS_COMPLETOS)
-
         df_train, df_test = train_test_split(df, test_size=split.test_size_percentage)
 
         df_train.to_csv(ARQUIVO_TREINO, index=False)
@@ -230,7 +225,6 @@ def _executar_clusterizacao(algoritmo: str):
 def dbscan():
     """Executa DBSCAN sobre df_train.csv e retorna clusters + PCA."""
     return _executar_clusterizacao("dbscan")
-
 
 @router.get("/hdbscan")
 def hdbscan():
