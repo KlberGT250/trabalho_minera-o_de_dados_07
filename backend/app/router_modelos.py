@@ -110,7 +110,7 @@ def dbscan():
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    dbscan = DBSCAN(eps=0.7, min_samples=5)
+    dbscan = DBSCAN(eps=1.0, min_samples=5)
     labels = dbscan.fit_predict(X_scaled)
 
     df = pd.DataFrame(
@@ -135,7 +135,7 @@ def Hdbscan():
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    hdb = HDBSCAN(min_cluster_size=15, min_samples=5)
+    hdb = HDBSCAN(min_cluster_size=10, min_samples=5)
     labels = hdb.fit_predict(X_scaled)
 
     df = pd.DataFrame(
@@ -148,7 +148,7 @@ def Hdbscan():
     X_pca = pca.fit_transform(X_scaled) 
 
     return {
-        "scan": df.to_dict(),
+        "scan": df.to_dict(orient="list"),
         "pca": X_pca.tolist()
         }
     
