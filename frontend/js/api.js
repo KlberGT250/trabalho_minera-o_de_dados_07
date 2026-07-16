@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const API = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-    ? "http://127.0.0.1:8000"
-    : "https://trabalho-minera-o-de-dados-07.onrender.com";
-=======
+
 /**
  * api.js — Funções para chamar os endpoints da API de análise de crédito.
  *
@@ -16,9 +12,7 @@ const API = window.location.hostname === "127.0.0.1" || window.location.hostname
 /** URL base da API */
 const API = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
     ? "http://127.0.0.1:8000"
-    : "https://trabalho-mineracao-de-dados-07.onrender.com";
-
-
+    : "https://trabalho-minera-o-de-dados-07.onrender.com";
 /**
 
  * Wrapper centralizado para chamadas fetch.
