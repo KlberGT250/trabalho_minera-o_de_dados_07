@@ -1,31 +1,79 @@
+"""
+app.py — Ponto de entrada da aplicação FastAPI.
+
+Inicializa o servidor, configura CORS e carrega o modelo de regressão
+no estado da aplicação durante o lifespan.
+"""
+
+import logging
+import os
 from contextlib import asynccontextmanager
+
+import joblib
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import joblib
 
 from app import router_modelos
+
+# Configuração de logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Caminho para o modelo (relativo a este arquivo)
+CAMINHO_ATUAL = os.path.dirname(__file__)
+ARQUIVO_MODELO = os.path.join(CAMINHO_ATUAL, "modelos", "modelo_regressao.pkl")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.modelo_regressao = joblib.load("app/modelos/modelo_regressao.pkl")
+    """
+    Gerencia o ciclo de vida da aplicação:
+    - startup: carrega o modelo do disco
+    - shutdown: libera o modelo da memória
+    """
+    modelo_path = ARQUIVO_MODELO
+    if not os.path.exists(modelo_path):
+        logger.warning(
+            f"Arquivo de modelo não encontrado: {modelo_path}. "
+            "Treine um modelo usando o endpoint /criar-modelo-com-hiperparametros."
+        )
+        app.state.modelo_regressao = None
+    else:
+        try:
+            app.state.modelo_regressao = joblib.load(modelo_path)
+            logger.info(f"Modelo carregado com sucesso de: {modelo_path}")
+        except Exception as e:
+            logger.error(f"Erro ao carregar modelo: {e}")
+            app.state.modelo_regressao = None
 
     yield
 
-    del app.state.modelo_regressao
+    # Shutdown
+    if hasattr(app.state, "modelo_regressao"):
+        del app.state.modelo_regressao
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(
+    title="API de Análise de Crédito",
+    description=(
+        "API para análise de crédito com regressão linear e "
+        "clusterização (DBSCAN / HDBSCAN)."
+    ),
+    version="0.2.0",
+    lifespan=lifespan,
+)
 
-# Configuração do CORS
+# Configuração do CORS — permite requisições do frontend local e remoto
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-    "http://localhost:5500",
-    "http://127.0.0.1:5500",
-    "https://trabalho-minera-o-de-dados-07.vercel.app",  # a URL real que a Vercel gerar
-],
-  
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "https://trabalho-minera-o-de-dados-07.vercel.app",
+        "https://trabalhominera-odedados07.vercel.app",
+        "https://trabalho-mineracao-de-dados-07.onrender.com",
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
