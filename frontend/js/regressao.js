@@ -10,6 +10,8 @@ import {
 
 } from "./api.js";
 
+import { registrarTreino } from "./historicoTreinos.js";
+
 export function inicializarRegressao(){
 
     document
@@ -57,7 +59,13 @@ async function treinarModelo(){
     };
 
     const resposta = await criarModelo(hiper);
-    await atualizarMetricas();
+    const metricas = await getMetricas();
+
+    // Atualiza os cards de métrica
+    atualizarMetricas(metricas);
+
+    // Registra no histórico para o gráfico de evolução
+    registrarTreino(hiper, metricas);
 
     document.getElementById("statusModelo").textContent = resposta.mensagem;
 
@@ -86,10 +94,11 @@ async function fazerPredicao(){
 
 }
 
-async function atualizarMetricas(){
-
-    const metricas = await getMetricas();
-
+/**
+ * Atualiza os quatro cards de métrica no dashboard.
+ * @param {Object} metricas - { mae, mse, rmse, r2 }
+ */
+function atualizarMetricas(metricas) {
     document.getElementById("mae").textContent =
         metricas.mae.toFixed(2);
 
@@ -101,5 +110,4 @@ async function atualizarMetricas(){
 
     document.getElementById("r2").textContent =
         metricas.r2.toFixed(4);
-
 }

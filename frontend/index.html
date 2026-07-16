@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Análise de Crédito</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>📊</text></svg>">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -170,6 +171,21 @@
             <div
                 id="statusModelo"
                 class="mensagem">
+            </div>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Evolução das Métricas</h2>
+
+            <p style="color: var(--cor-texto-suave); font-size: 14px; margin-top: -10px;">
+                Conforme você altera os hiperparâmetros e treina novamente, o gráfico abaixo
+                acumula os resultados de cada execução.
+            </p>
+
+            <div class="grafico" style="border-top-color: #f57c00;">
+                <canvas id="graficoHistorico"></canvas>
             </div>
 
         </section>
