@@ -7,8 +7,10 @@
  * A constante API pode ser alterada para apontar para ambiente local ou remoto.
  */
 
-/** URL base da API — altere para o endereço do backend em produção */
-const API = "http://127.0.0.1:8000";
+/** URL base da API */
+const API = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+    ? "http://127.0.0.1:8000"
+    : "https://trabalho-mineracao-de-dados-07.onrender.com";
 
 
 /**
