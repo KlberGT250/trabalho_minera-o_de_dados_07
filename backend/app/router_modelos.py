@@ -123,7 +123,7 @@ def dbscan():
     X_pca = pca.fit_transform(X_scaled) 
 
     return {
-        "scan": df.to_dict(),
+        "scan": df.to_dict(orient="list"),
         "pca": X_pca.tolist()
         }
 
