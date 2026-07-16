@@ -1,0 +1,21 @@
+{
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    },
+    {
+      "src": "frontend/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/(json-bruto|predicao|metricas|criar-modelo-com-hiperparametros|split-dataset|dbscan|hdbscan)(.*)", "dest": "api/index.py" },
+    { "src": "/docs(.*)", "dest": "api/index.py" },
+    { "src": "/openapi.json", "dest": "api/index.py" },
+    { "src": "/(.*)", "dest": "frontend/$1" }
+  ]
+}
