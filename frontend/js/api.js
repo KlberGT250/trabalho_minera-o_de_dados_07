@@ -2,7 +2,7 @@
 /**
  * api.js — Funções para chamar os endpoints da API de análise de crédito.
  *
->>>>>>> a63be68804ffe5ef37a25a77f5b70e9975c2767a
+
 
 
  * Todas as funções usam fetch() com um wrapper centralizado de tratamento de erros.
