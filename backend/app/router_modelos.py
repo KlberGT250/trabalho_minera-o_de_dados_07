@@ -135,7 +135,7 @@ def Hdbscan():
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    hdb = HDBSCAN(min_cluster_size=10, min_samples=5)
+    hdb = HDBSCAN(min_cluster_size=5, min_samples=2)
     labels = hdb.fit_predict(X_scaled)
 
     df = pd.DataFrame(
