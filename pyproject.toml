@@ -1,7 +1,7 @@
 [project]
 name = "app"
 version = "0.1.0"
-description = ""
+description = "API de Análise de Crédito com regressão linear e clusterização DBSCAN/HDBSCAN"
 authors = [
     {name = "Eduardo Silva Farias",email = "96924789+EduSF00@users.noreply.github.com"}
 ]
@@ -12,6 +12,16 @@ dependencies = [
     "scikit-learn (>=1.9.0,<2.0.0)",
     "pandas (>=3.0.3,<4.0.0)"
 ]
+
+[tool.poetry]
+packages = [
+    { include = "app", from = "backend" },
+]
+include = [
+    "app/arquivos/*.csv",
+    "app/modelos/*.pkl",
+]
+exclude = [".vscode"]
 
 
 [build-system]
