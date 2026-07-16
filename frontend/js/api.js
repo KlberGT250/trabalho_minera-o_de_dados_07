@@ -7,10 +7,8 @@
  * A constante API pode ser alterada para apontar para ambiente local ou remoto.
  */
 
-/** URL base da API — local usa 127.0.0.1:8000; Vercel usa mesma origem */
-const API = /^(127\.0\.0\.1|localhost)$/.test(window.location.hostname)
-    ? "http://127.0.0.1:8000"
-    : "";
+/** URL base da API — altere para o endereço do backend em produção */
+const API = "http://127.0.0.1:8000";
 
 
 /**

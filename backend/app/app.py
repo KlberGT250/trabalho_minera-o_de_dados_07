@@ -12,7 +12,6 @@ from contextlib import asynccontextmanager
 import joblib
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from app import router_modelos
 
@@ -78,8 +77,3 @@ app.add_middleware(
 )
 
 app.include_router(router_modelos.router)
-
-# Monta o frontend como arquivos estáticos (para Vercel)
-frontend_dir = os.path.join(os.path.dirname(__file__), "..", "..", "frontend")
-if os.path.isdir(frontend_dir):
-    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
